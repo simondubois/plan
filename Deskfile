@@ -1,0 +1,40 @@
+#/bin/bash
+
+export PATH=$PATH:./vendor/bin:./node_modules/.bin
+export HISTFILE=$HOME/.bash_history_plan
+touch $HISTFILE
+
+function dev-install {
+    # git clone git@github.com:simondubois/plan.git ./
+    composer install
+    cp .env.example .env
+    php artisan key:generate
+    sed -i "" "s/DB_DATABASE=.*/DB_DATABASE=plan/g" .env
+    sed -i "" "s/DB_USERNAME=.*/DB_USERNAME=root/g" .env
+    sed -i "" "s/DB_PASSWORD=.*/DB_PASSWORD=/g" .env
+    dev-migrate
+    npm install
+}
+
+function dev-migrate {
+    mysql -e "DROP DATABASE plan" 2> /dev/null
+    mysql -e "CREATE DATABASE plan"
+    php artisan migrate --seed
+}
+
+function demo-update {
+    ssh $DESK_PLAN_DEMO_HOST "cd $DESK_PLAN_DEMO_PATH && git fetch"
+    ssh $DESK_PLAN_DEMO_HOST "cd $DESK_PLAN_DEMO_PATH && git reset origin/master --hard"
+    ssh $DESK_PLAN_DEMO_HOST "cd $DESK_PLAN_DEMO_PATH && php-7.3 composer install --optimize-autoloader"
+    ssh $DESK_PLAN_DEMO_HOST "cd $DESK_PLAN_DEMO_PATH && php-7.3 artisan view:clear"
+    open $DESK_PLAN_DEMO_URL
+}
+
+function prod-update {
+    ssh $DESK_PLAN_PROD_HOST "cd $DESK_PLAN_PROD_PATH && git fetch"
+    ssh $DESK_PLAN_PROD_HOST "cd $DESK_PLAN_PROD_PATH && git reset origin/master --hard"
+    desk_PLAN_prod_auth
+    ssh $DESK_PLAN_PROD_HOST "cd $DESK_PLAN_PROD_PATH && php-7.3 composer install --optimize-autoloader --no-dev"
+    ssh $DESK_PLAN_PROD_HOST "cd $DESK_PLAN_PROD_PATH && php-7.3 artisan view:clear"
+    open $DESK_PLAN_PROD_URL
+}
