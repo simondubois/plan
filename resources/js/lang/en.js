@@ -7,6 +7,13 @@ export default {
         save: 'Save',
     },
 
+    project: {
+        index: {
+            empty: 'No project',
+            title: 'My projects',
+        },
+    },
+
     units: {
         days: 'd.',
         minutes: 'minutes',

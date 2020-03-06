@@ -12,3 +12,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::apiResource('projects', ProjectController::class)
+    ->only(['index', 'show']);
