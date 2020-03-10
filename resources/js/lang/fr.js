@@ -54,6 +54,13 @@ export default {
         },
     },
 
+    task: {
+        index: {
+            empty: 'Aucune tâche',
+            title: 'Tâches',
+        },
+    },
+
     units: {
         days: 'j.',
         minutes: 'minutes',

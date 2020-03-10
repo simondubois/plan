@@ -21,6 +21,15 @@ export default [
         ],
     },
     {
+        path: '/projects/:projectId',
+        name: 'task-index',
+        components: {
+            footer: require('./navbars/TaskFooter.vue').default,
+            header: require('./navbars/TaskHeader.vue').default,
+            layout: require('./pages/TaskIndex.vue').default,
+        },
+    },
+    {
         path: '*',
         redirect: '/projects',
     },

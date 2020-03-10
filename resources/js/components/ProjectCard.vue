@@ -13,6 +13,15 @@
                     v-if="hovered"
                     class="float-right ml-1"
                 >
+
+                    <router-link
+                        :title="$t('task.index.title')"
+                        :to="taskRoute"
+                        class="m-1"
+                    >
+                        <fontawesome-icon icon="tasks" />
+                    </router-link>
+
                     <router-link
                         :title="$t('project.edit.title')"
                         :to="editRoute"
@@ -20,6 +29,7 @@
                     >
                         <fontawesome-icon icon="edit" />
                     </router-link>
+
                 </div>
             </transition>
 
@@ -72,6 +82,7 @@
         }),
         computed: {
             editRoute: vue => ({ name: 'project-edit', params: { projectId: vue.project.id } }),
+            taskRoute: vue => ({ name: 'task-index', params: { projectId: vue.project.id } }),
         },
     };
 

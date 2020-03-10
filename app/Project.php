@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Project extends Model
 {
@@ -26,4 +28,45 @@ class Project extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    /**
+     * Get the tasks for the project.
+     *
+     * @return HasMany
+     */
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    /**
+     * Get the tasks without parent for the project.
+     *
+     * @return HasMany
+     */
+    public function rootTasks(): HasMany
+    {
+        return $this->tasks()
+            ->whereDoesntHave('parent');
+    }
+
+    /**
+     * Update the inherited attributes based on root tasks values.
+     *
+     * @return void
+     */
+    public function updateInheritance(): void
+    {
+        $this->estimated_time = $this->rootTasks()->sum('estimated_time');
+        $this->spent_time = $this->rootTasks()->sum('spent_time');
+        if ($this->estimated_time === 0) {
+            $this->completion = intval($this->rootTasks()->avg('completion'));
+        }
+        if ($this->estimated_time > 0) {
+            $this->completion = $this->rootTasks()->sum(DB::raw('completion * estimated_time')) / $this->estimated_time;
+        }
+        $this->start = $this->rootTasks()->min('start');
+        $this->end = $this->rootTasks()->max('end');
+        $this->save();
+    }
 }

@@ -56,6 +56,10 @@ window.app = new Vue({
                 namespaced: true,
                 ...require('./stores/state.js'),
             },
+            task: {
+                namespaced: true,
+                ...require('./stores/task.js'),
+            },
         }
     }),
     created() {

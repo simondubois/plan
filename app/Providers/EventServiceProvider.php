@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Observers\ProjectObserver;
+use App\Observers\TaskObserver;
 use App\Project;
+use App\Task;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -32,5 +34,6 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         Project::observe(ProjectObserver::class);
+        Task::observe(TaskObserver::class);
     }
 }
