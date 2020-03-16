@@ -7,9 +7,26 @@
     >
 
         <div class="card-header">
+
+            <transition name="fade">
+                <div
+                    v-if="hovered"
+                    class="float-right ml-1"
+                >
+                    <router-link
+                        :title="$t('project.edit.title')"
+                        :to="editRoute"
+                        class="m-1"
+                    >
+                        <fontawesome-icon icon="edit" />
+                    </router-link>
+                </div>
+            </transition>
+
             <div class="text-truncate text-center">
                 {{ project.name }}
             </div>
+
         </div>
 
         <div class="card-body">
@@ -53,6 +70,9 @@
         data: () => ({
             hovered: false,
         }),
+        computed: {
+            editRoute: vue => ({ name: 'project-edit', params: { projectId: vue.project.id } }),
+        },
     };
 
 </script>

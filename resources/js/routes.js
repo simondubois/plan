@@ -13,6 +13,11 @@ export default [
                 name: 'project-create',
                 component: require('./pages/ProjectCreate.vue').default,
             },
+            {
+                path: 'edit/:projectId',
+                name: 'project-edit',
+                component: require('./pages/ProjectEdit.vue').default,
+            },
         ],
     },
     {

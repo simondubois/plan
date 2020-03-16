@@ -45,6 +45,9 @@ export default {
         create: {
             title: 'New project',
         },
+        edit: {
+            title: 'Edit',
+        },
         index: {
             empty: 'No project',
             title: 'My projects',

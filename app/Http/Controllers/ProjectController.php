@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Project;
 use Illuminate\Http\Request;
@@ -43,5 +44,19 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         return new ProjectResource($project);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateProjectRequest  $request
+     * @param  \App\Project
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateProjectRequest $request, Project $project)
+    {
+        return new ProjectResource(
+            tap($project)->update($request->validated())
+        );
     }
 }

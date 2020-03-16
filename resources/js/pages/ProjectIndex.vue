@@ -35,6 +35,7 @@
             <router-view
                 v-bind="[$route.params, $route.query]"
                 @project:stored="fetchProjects"
+                @project:updated="fetchProjects"
             />
         </transition>
 
