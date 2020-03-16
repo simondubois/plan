@@ -39,6 +39,12 @@ export default {
     },
 
     project: {
+        attributes: {
+            name: 'Name',
+        },
+        create: {
+            title: 'New project',
+        },
         index: {
             empty: 'No project',
             title: 'My projects',

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Project;
+use App\Http\Requests\StoreProjectRequest;
 use App\Http\Resources\ProjectResource;
+use App\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -17,6 +18,19 @@ class ProjectController extends Controller
     {
         return ProjectResource::collection(
             Project::latest('updated_at')->get()
+        );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreProjectRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreProjectRequest $request)
+    {
+        return new ProjectResource(
+            Project::create($request->validated())
         );
     }
 

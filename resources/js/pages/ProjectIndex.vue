@@ -27,6 +27,17 @@
             </p>
         </div>
 
+        <transition
+            mode="out-in"
+            name="fade"
+            appear
+        >
+            <router-view
+                v-bind="[$route.params, $route.query]"
+                @project:stored="fetchProjects"
+            />
+        </transition>
+
     </div>
 
 </template>
