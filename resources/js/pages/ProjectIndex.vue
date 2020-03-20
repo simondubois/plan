@@ -34,6 +34,7 @@
         >
             <router-view
                 v-bind="[$route.params, $route.query]"
+                @project:deleted="fetchProjects"
                 @project:stored="fetchProjects"
                 @project:updated="fetchProjects"
             />

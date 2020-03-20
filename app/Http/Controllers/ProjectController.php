@@ -59,4 +59,17 @@ class ProjectController extends Controller
             tap($project)->update($request->validated())
         );
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Project  $project
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Project $project)
+    {
+        $project->delete();
+
+        return response()->noContent();
+    }
 }

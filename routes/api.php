@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('projects', ProjectController::class)
-    ->only(['index', 'store', 'show', 'update']);
+    ->only(['index', 'store', 'show', 'update', 'destroy']);

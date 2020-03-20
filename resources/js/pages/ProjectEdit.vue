@@ -37,6 +37,12 @@
 
             </div>
 
+            <project-delete
+                slot="footer-left"
+                :project-id="projectId"
+                @project:deleted="$emit('project:deleted') ; close()"
+            />
+
             <button
                 slot="footer-right"
                 class="btn btn-primary"
