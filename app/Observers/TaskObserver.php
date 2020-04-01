@@ -16,6 +16,13 @@ class TaskObserver
         $this->updateInheritance($task);
     }
 
+    public function updating(Task $task): void
+    {
+        if ($task->isDirty('parent_id')) {
+            $task->position = $task->siblings->count() + 1;
+        }
+    }
+
     public function updated(Task $task): void
     {
         $this->updateInheritance($task);

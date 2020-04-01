@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Task;
 use Illuminate\Database\Eloquent\Builder;
@@ -50,5 +51,19 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         return new TaskResource($task);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateTaskRequest  $request
+     * @param  \App\Task
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateTaskRequest $request, Task $task)
+    {
+        return new TaskResource(
+            tap($task)->update($request->validated())
+        );
     }
 }

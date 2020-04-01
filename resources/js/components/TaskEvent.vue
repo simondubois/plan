@@ -17,6 +17,17 @@
 
             {{ task.code }}. {{ task.name }}
 
+            <transition name="fade">
+                <router-link
+                    v-if="hovered"
+                    :title="$t('task.edit.title')"
+                    :to="editRoute"
+                    class="mx-1"
+                >
+                    <fontawesome-icon icon="edit" />
+                </router-link>
+            </transition>
+
             <div class="text-center">
                 <bs-badge-time
                     :completion="task.completion"
@@ -56,6 +67,7 @@
                 }
                 return 'muted';
             },
+            editRoute: vue => ({ name: 'task-edit', params: { taskId: vue.task.id }, query: vue.$route.query }),
             parent: vue => vue.$store.getters['task/find'](vue.task.parent_id),
             parentName: vue => vue.parent ? vue.parent.name : undefined,
         },

@@ -17,4 +17,4 @@ Route::apiResource('projects', ProjectController::class)
     ->only(['index', 'store', 'show', 'update', 'destroy']);
 
 Route::apiResource('tasks', TaskController::class)
-    ->only(['index', 'store', 'show']);
+    ->only(['index', 'store', 'show', 'update']);

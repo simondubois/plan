@@ -71,6 +71,9 @@ export default {
             titleChild: 'Subtask',
             titleRoot: 'Root task',
         },
+        edit: {
+            title: 'Edit',
+        },
         index: {
             empty: 'No task',
             title: 'Tasks',

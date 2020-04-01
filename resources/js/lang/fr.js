@@ -71,6 +71,9 @@ export default {
             titleChild: 'Sous-tâche',
             titleRoot: 'Tâche principale',
         },
+        edit: {
+            title: 'Modifier',
+        },
         index: {
             empty: 'Aucune tâche',
             title: 'Tâches',

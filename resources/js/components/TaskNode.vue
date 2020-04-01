@@ -14,6 +14,15 @@
                     v-if="hovered"
                     class="float-right ml-1"
                 >
+
+                    <router-link
+                        :title="$t('task.edit.title')"
+                        :to="editRoute"
+                        class="mx-1"
+                    >
+                        <fontawesome-icon icon="edit" />
+                    </router-link>
+
                     <router-link
                         :title="$t('task.create.titleChild')"
                         :to="createRoute"
@@ -21,6 +30,7 @@
                     >
                         <fontawesome-icon icon="create" />
                     </router-link>
+
                 </div>
             </transition>
 
@@ -93,6 +103,7 @@
             createRoute: vue => ({ name: 'task-create', query: { ...vue.$route.query, parentId: vue.task.id } }),
             dateComponent: vue => vue.hasChildren ? 'bs-progress-date' : 'bs-badge-date',
             dates: vue => vue.$store.getters['task/leaves'](vue.task.id).map(task => task.start),
+            editRoute: vue => ({ name: 'task-edit', params: { taskId: vue.task.id }, query: vue.$route.query }),
             estimations: vue => vue.$store.getters['task/leaves'](vue.task.id).map(task => task.estimated_time),
             hasChildren: vue => vue.$store.getters['task/children'](vue.task.id).length > 0,
             timeComponent: vue => vue.hasChildren ? 'bs-progress-time' : 'bs-badge-time',

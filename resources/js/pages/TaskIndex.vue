@@ -24,6 +24,7 @@
             <router-view
                 v-bind="[$route.params, $route.query]"
                 @task:stored="fetchTasks"
+                @task:updated="fetchTasks"
             />
         </transition>
 

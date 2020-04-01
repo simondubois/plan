@@ -34,6 +34,11 @@ export default [
                 name: 'task-create',
                 component: require('./pages/TaskCreate.vue').default,
             },
+            {
+                path: 'edit/:taskId',
+                name: 'task-edit',
+                component: require('./pages/TaskEdit.vue').default,
+            },
         ],
     },
     {
