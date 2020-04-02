@@ -47,6 +47,17 @@
         </template>
 
         <template slot="right">
+
+            <li class="nav-item">
+                <router-link
+                    :to="createRoute"
+                    class="nav-link"
+                >
+                    <fontawesome-icon icon="create" />
+                    {{ $t('task.create.titleRoot') }}
+                </router-link>
+            </li>
+
             <li class="nav-item">
                 <a
                     class="nav-link"
@@ -59,6 +70,7 @@
                     </span>
                 </a>
             </li>
+
         </template>
 
         <help-modal
@@ -81,6 +93,7 @@
         }),
         computed: {
             calendarRoute: vue => ({ name: 'task-index', query: { ...vue.$route.query, taskView: 'calendar' } }),
+            createRoute: vue => ({ name: 'task-create', query: { ...vue.$route.query, parentId: null } }),
             horizontalRoute: vue => ({ name: 'task-index', query: { ...vue.$route.query, taskView: 'horizontal' } }),
             listRoute: vue => ({ name: 'task-index', query: { ...vue.$route.query, taskView: 'list' } }),
             verticalRoute: vue => ({ name: 'task-index', query: { ...vue.$route.query, taskView: 'vertical' } }),

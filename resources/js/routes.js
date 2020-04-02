@@ -28,6 +28,13 @@ export default [
             header: require('./navbars/TaskHeader.vue').default,
             layout: require('./pages/TaskIndex.vue').default,
         },
+        children: [
+            {
+                path: 'create',
+                name: 'task-create',
+                component: require('./pages/TaskCreate.vue').default,
+            },
+        ],
     },
     {
         path: '*',

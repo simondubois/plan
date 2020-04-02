@@ -55,6 +55,22 @@ export default {
     },
 
     task: {
+        attributes: {
+            completion: 'Completion',
+            date: 'Planned at',
+            end: 'Ending date',
+            estimated_time: 'Estimated duration',
+            name: 'Title',
+            noParent: 'No parent',
+            parent_id: 'Parent task',
+            spent_time: 'Spent duration',
+            start: 'Starting date',
+        },
+        create: {
+            title: 'New task',
+            titleChild: 'Subtask',
+            titleRoot: 'Root task',
+        },
         index: {
             empty: 'No task',
             title: 'Tasks',

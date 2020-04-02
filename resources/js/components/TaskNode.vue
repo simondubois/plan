@@ -8,6 +8,22 @@
     >
 
         <div class="card-header">
+
+            <transition name="fade">
+                <div
+                    v-if="hovered"
+                    class="float-right ml-1"
+                >
+                    <router-link
+                        :title="$t('task.create.titleChild')"
+                        :to="createRoute"
+                        class="mx-1"
+                    >
+                        <fontawesome-icon icon="create" />
+                    </router-link>
+                </div>
+            </transition>
+
             <div class="text-center text-truncate">
                 <bs-badge-completion
                     v-if="hasChildren === false"
@@ -15,6 +31,7 @@
                 />
                 {{ task.code }}. {{ task.name }}
             </div>
+
         </div>
 
         <div class="card-body text-center">
@@ -73,6 +90,7 @@
                 }
                 return 'muted';
             },
+            createRoute: vue => ({ name: 'task-create', query: { ...vue.$route.query, parentId: vue.task.id } }),
             dateComponent: vue => vue.hasChildren ? 'bs-progress-date' : 'bs-badge-date',
             dates: vue => vue.$store.getters['task/leaves'](vue.task.id).map(task => task.start),
             estimations: vue => vue.$store.getters['task/leaves'](vue.task.id).map(task => task.estimated_time),

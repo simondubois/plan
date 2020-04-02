@@ -9,8 +9,27 @@
 
         <div class="d-flex justify-content-between align-items-center">
 
-            <div class="text-truncate">
-                {{ task.code }}. {{ task.name }}
+            <div>
+
+                <transition name="fade">
+                    <div
+                        v-if="hovered"
+                        class="float-right ml-1"
+                    >
+                        <router-link
+                            :title="$t('task.create.titleChild')"
+                            :to="createRoute"
+                            class="mx-1"
+                        >
+                            <fontawesome-icon icon="create" />
+                        </router-link>
+                    </div>
+                </transition>
+
+                <div class="text-truncate">
+                    {{ task.code }}. {{ task.name }}
+                </div>
+
             </div>
 
             <div :class="hasChildren && hovered === false ? 'faded' : 'unfaded'">
@@ -70,6 +89,7 @@
                 }
                 return 'muted';
             },
+            createRoute: vue => ({ name: 'task-create', query: { ...vue.$route.query, parentId: vue.task.id } }),
             dates: vue => vue.$store.getters['task/leaves'](vue.task.id).map(task => task.start),
             estimations: vue => vue.$store.getters['task/leaves'](vue.task.id).map(task => task.estimated_time),
             hasChildren: vue => vue.$store.getters['task/children'](vue.task.id).length > 0,

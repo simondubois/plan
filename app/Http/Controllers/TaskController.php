@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Task;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,6 +25,19 @@ class TaskController extends Controller
                 ->with('parent')
                 ->get()
                 ->sort([Task::class, 'sort'])
+        );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreTaskRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreTaskRequest $request)
+    {
+        return new TaskResource(
+            Task::create($request->validated())
         );
     }
 
