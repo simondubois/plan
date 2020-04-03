@@ -23,6 +23,7 @@
         >
             <router-view
                 v-bind="[$route.params, $route.query]"
+                @task:deleted="fetchTasks"
                 @task:stored="fetchTasks"
                 @task:updated="fetchTasks"
             />

@@ -66,4 +66,17 @@ class TaskController extends Controller
             tap($task)->update($request->validated())
         );
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Task  $task
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Task $task)
+    {
+        $task->delete();
+
+        return response()->noContent();
+    }
 }
