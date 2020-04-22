@@ -6,6 +6,7 @@
             :key="day.valueOf()"
             :day="day"
             class="flex-fill"
+            @task:updated="$emit('task:updated')"
         />
     </div>
 

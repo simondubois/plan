@@ -13,11 +13,12 @@
                     :class="{ 'border-top': index }"
                     :show-weekends="showWeekends"
                     :week="week"
+                    @task:updated="$emit('task:updated')"
                 />
             </div>
 
             <div class="col overflow-auto border-left">
-                <task-unplanned />
+                <task-unplanned @task:updated="$emit('task:updated')" />
             </div>
 
         </div>

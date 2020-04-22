@@ -5,6 +5,7 @@
         <component
             :is="'task-' + taskView"
             v-if="tasks.length"
+            @task:updated="fetchTasks"
         />
 
         <div
