@@ -69,6 +69,7 @@
         <task-list
             v-if="hasChildren"
             :parent-id="task.id"
+            @task:updated="$emit('task:updated')"
         />
 
     </li>

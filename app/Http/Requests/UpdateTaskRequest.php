@@ -36,6 +36,11 @@ class UpdateTaskRequest extends FormRequest
                     'nullable',
                     Rule::exists('tasks', 'id'),
                 ],
+                'position' => [
+                    'numeric',
+                    'required',
+                    'min:0',
+                ],
             ];
         }
 
@@ -71,6 +76,11 @@ class UpdateTaskRequest extends FormRequest
             'date' => [
                 'date',
                 'nullable',
+            ],
+            'position' => [
+                'numeric',
+                'required',
+                'min:0',
             ],
         ];
     }
