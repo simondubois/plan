@@ -24,18 +24,25 @@
             :parent-element="parentNode"
         />
 
-        <div
+        <component
+            :is="draggable ? 'vue-draggable' : 'div'"
             v-if="children.length"
             :class="{ 'flex-column': horizontal }"
+            :group="'task-tree-' + task.id"
+            :list="children"
+            animation="500"
             class="d-flex"
+            @update="updateHandler"
         >
             <task-tree
                 v-for="child in children"
                 :key="child.id"
+                :class="{ grabbable: draggable }"
                 :horizontal="horizontal"
                 :task="child"
+                @task:updated="$emit('task:updated')"
             />
-        </div>
+        </component>
 
     </div>
 
@@ -46,6 +53,9 @@
 <script>
 
     export default {
+        components: {
+            'vue-draggable': require('vuedraggable'),
+        },
         props: {
             horizontal: {
                 type: Boolean,
@@ -63,12 +73,27 @@
         }),
         computed: {
             children: vue => vue.$store.getters['task/children'](vue.task.id),
+            draggable: vue => vue.children.length > 1,
             space: vue => vue.$store.getters['task/leaves'](vue.task.id).length || 1,
+            updateHandler: vue => vue.draggable ? vue.submit : () => {},
+        },
+        watch: {
+            children: {
+                handler() {
+                    this.$nextTick(this.watchDom);
+                },
+            },
         },
         mounted() {
             this.watchDom();
         },
         methods: {
+            submit(event) {
+                const task = this.children[event.newDraggableIndex];
+                require('axios')
+                    .put('api/tasks/' + task.id, { ...task, position: event.newDraggableIndex + 1 })
+                    .then(() => this.$emit('task:updated'));
+            },
             watchDom() {
                 this.parentNode = this.$el.querySelector('#task-node-' + this.task.id);
                 this.childNodes = this.children.map(task => this.$el.querySelector('#task-node-' + task.id));

@@ -54,6 +54,9 @@
         },
         methods: {
             updatePaths() {
+                if (this.$el.parentElement === null) {
+                    return;
+                }
                 if (this.horizontal) {
                     this.parentPosition = this.parentElement.offsetTop - this.$el.parentElement.offsetTop + this.parentElement.offsetHeight / 2;
                     this.paths = this.childElements
